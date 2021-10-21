@@ -53,4 +53,9 @@ defmodule SvgBuilder do
       elements
     )
   end
+
+  @spec defs([Element.t]) :: Element.t
+  def defs(elements \\ []) do
+    Element.element(:defs, %{}, elements)
+  end
 end
