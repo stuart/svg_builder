@@ -5,7 +5,7 @@ defmodule SvgBuilderTest do
   use SvgBuilder
   use Tesla
 
-  #@moduletag :external
+  @moduletag :external
 
   plug(Tesla.Middleware.BaseUrl, "https://validator.w3.org/nu/")
 

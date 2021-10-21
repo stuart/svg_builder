@@ -38,7 +38,7 @@ defmodule SvgBuilder.Element do
     ## Example
 
       iex> Element.group([Shape.rect(1,1,1,1), Shape.rect(2,2,1,1)])
-      {"g", %{},
+      {:g, %{},
       [
         {:rect, %{height: "1", width: "1", x: "1", y: "1"}, []},
         {:rect, %{height: "1", width: "1", x: "2", y: "2"}, []}
@@ -73,9 +73,9 @@ defmodule SvgBuilder.Element do
   @doc """
     Add multiple attributes to an element.
 
-    Returns: element
-
     The attributes must be a map.
+
+
   """
   @spec add_attributes(t, map) :: t
   def add_attributes({type, attrs, children}, attributes) do
@@ -85,7 +85,9 @@ defmodule SvgBuilder.Element do
   @doc """
     Remove an attribute from an element.
 
-    Returns: element
+    ## Example
+      iex> {:rect, %{foo: 123, bar: 1234}, []} |> Element.remove_attribute(:foo)
+      {:rect, %{bar: 1234}, []}
   """
   @spec remove_attribute(t, atom) :: t
   def remove_attribute({type, attrs, children}, name) do

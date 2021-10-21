@@ -38,15 +38,19 @@ defmodule SvgBuilder do
     ])
   end
 
-  @spec svg(Units.len_t, Units.len_t) :: Element.t
+  @spec svg(Units.len_t(), Units.len_t(), [Element.t()]) :: Element.t()
   def svg(width, height, elements \\ []) do
-    Element.element(:svg, %{
-      version: "1.1",
-      width: Units.len(width),
-      height: Units.len(height),
-      viewBox: "0 0 #{Units.len(width)} #{Units.len(height)}",
-      xmlns: "http://www.w3.org/2000/svg",
-      "xmlns:xlink": "http://www.w3.org/1999/xlink"
-    }, elements)
+    Element.element(
+      :svg,
+      %{
+        version: "1.1",
+        width: Units.len(width),
+        height: Units.len(height),
+        viewBox: "0 0 #{Units.len(width)} #{Units.len(height)}",
+        xmlns: "http://www.w3.org/2000/svg",
+        "xmlns:xlink": "http://www.w3.org/1999/xlink"
+      },
+      elements
+    )
   end
 end
