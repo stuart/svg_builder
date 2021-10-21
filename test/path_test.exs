@@ -15,7 +15,7 @@ defmodule PathTest do
       Path.path()
       |> Path.move(10, 10)
 
-    assert {"path", %{d: "M 10 10"}, []} = p
+    assert {"path", %{d: "M10 10"}, []} = p
   end
 
   test "move rel" do
@@ -23,7 +23,7 @@ defmodule PathTest do
       Path.path()
       |> Path.move_rel(1.23, 4.5)
 
-    assert {"path", %{d: "m 1.23 4.5"}, []} = p
+    assert {"path", %{d: "m1.23 4.5"}, []} = p
   end
 
   test "line_to" do
@@ -31,7 +31,7 @@ defmodule PathTest do
       Path.path()
       |> Path.line_to(10, 10)
 
-    assert {"path", %{d: "L 10 10"}, []} = p
+    assert {"path", %{d: "L10 10"}, []} = p
   end
 
   test "line_to with a list of x y pairs" do
@@ -39,7 +39,7 @@ defmodule PathTest do
       Path.path()
       |> Path.line_to([{1, 1}, {3.3, 4}, {5, 6}])
 
-    assert {"path", %{d: "L 1 1 3.3 4 5 6"}, []} = p
+    assert {"path", %{d: "L1 1 3.3 4 5 6"}, []} = p
   end
 
   test "line_to_rel" do
@@ -47,7 +47,7 @@ defmodule PathTest do
       Path.path()
       |> Path.line_to_rel(1.23, 4.5)
 
-    assert {"path", %{d: "l 1.23 4.5"}, []} = p
+    assert {"path", %{d: "l1.23 4.5"}, []} = p
   end
 
   test "horizontal line" do
@@ -55,7 +55,7 @@ defmodule PathTest do
       Path.path()
       |> Path.horizontal(20.3)
 
-    assert {"path", %{d: "H 20.3"}, []} = p
+    assert {"path", %{d: "H20.3"}, []} = p
   end
 
   test "relative horizontal line" do
@@ -63,7 +63,7 @@ defmodule PathTest do
       Path.path()
       |> Path.horizontal_rel(20.3)
 
-    assert {"path", %{d: "h 20.3"}, []} = p
+    assert {"path", %{d: "h20.3"}, []} = p
   end
 
   test "vertical line" do
@@ -71,7 +71,7 @@ defmodule PathTest do
       Path.path()
       |> Path.vertical(10)
 
-    assert {"path", %{d: "V 10"}, []} = p
+    assert {"path", %{d: "V10"}, []} = p
   end
 
   test "relative vertical line" do
@@ -79,7 +79,7 @@ defmodule PathTest do
       Path.path()
       |> Path.vertical_rel(20)
 
-    assert {"path", %{d: "v 20"}, []} = p
+    assert {"path", %{d: "v20"}, []} = p
   end
 
   test "close_path" do
@@ -88,7 +88,7 @@ defmodule PathTest do
       |> Path.line_to_rel(1.23, 4.5)
       |> Path.close_path()
 
-    assert {"path", %{d: "l 1.23 4.5 Z"}, []} = p
+    assert {"path", %{d: "l1.23 4.5Z"}, []} = p
   end
 
   test "cubic" do
@@ -96,7 +96,7 @@ defmodule PathTest do
       Path.path()
       |> Path.cubic([{1, 1}, {3, 4}, {5, 6}])
 
-    assert {"path", %{d: "C 1 1 3 4 5 6"}, []} = p
+    assert {"path", %{d: "C1 1 3 4 5 6"}, []} = p
   end
 
   test "relative cubic" do
@@ -104,7 +104,7 @@ defmodule PathTest do
       Path.path()
       |> Path.cubic_rel([{1, 1}, {3, 4}, {5, 6}])
 
-    assert {"path", %{d: "c 1 1 3 4 5 6"}, []} = p
+    assert {"path", %{d: "c1 1 3 4 5 6"}, []} = p
   end
 
   test "smooth cubic" do
@@ -112,7 +112,7 @@ defmodule PathTest do
       Path.path()
       |> Path.smooth_cubic([{1, 1}, {3, 4}])
 
-    assert {"path", %{d: "S 1 1 3 4"}, []} = p
+    assert {"path", %{d: "S1 1 3 4"}, []} = p
   end
 
   test "relative smooth cubic" do
@@ -120,7 +120,7 @@ defmodule PathTest do
       Path.path()
       |> Path.smooth_cubic_rel([{1, 1}, {3, 4}])
 
-    assert {"path", %{d: "s 1 1 3 4"}, []} = p
+    assert {"path", %{d: "s1 1 3 4"}, []} = p
   end
 
   test "quadratic" do
@@ -128,7 +128,7 @@ defmodule PathTest do
       Path.path()
       |> Path.quadratic([{1, 1}, {3, 4}, {5, 6}])
 
-    assert {"path", %{d: "Q 1 1 3 4 5 6"}, []} = p
+    assert {"path", %{d: "Q1 1 3 4 5 6"}, []} = p
   end
 
   test "relative quadratic" do
@@ -136,7 +136,7 @@ defmodule PathTest do
       Path.path()
       |> Path.quadratic_rel([{1, 1}, {3, 4}, {5, 6}])
 
-    assert {"path", %{d: "q 1 1 3 4 5 6"}, []} = p
+    assert {"path", %{d: "q1 1 3 4 5 6"}, []} = p
   end
 
   test "smooth quadratic" do
@@ -144,7 +144,7 @@ defmodule PathTest do
       Path.path()
       |> Path.smooth_quadratic([{1, 1}, {3, 4}])
 
-    assert {"path", %{d: "T 1 1 3 4"}, []} = p
+    assert {"path", %{d: "T1 1 3 4"}, []} = p
   end
 
   test "relative smooth quadratic" do
@@ -152,22 +152,35 @@ defmodule PathTest do
       Path.path()
       |> Path.smooth_quadratic_rel([{1, 1}, {3, 4}])
 
-    assert {"path", %{d: "t 1 1 3 4"}, []} = p
+    assert {"path", %{d: "t1 1 3 4"}, []} = p
   end
 
   test "arc" do
     p =
       Path.path()
-      |> Path.arc(25, 25, -30, 0, 1, 50, -25)
+      |> Path.arc(25, 25, -30, false, true, 50, -25)
 
-    assert {"path", %{d: "A 25 25 -30 0 1 50 -25"}, []} = p
+    assert {"path", %{d: "A25 25 -30 0 1 50 -25"}, []} = p
   end
 
   test "relative arc" do
     p =
       Path.path()
-      |> Path.arc_rel(25, 25, -30, 0, 1, 50, -25)
+      |> Path.arc_rel(25, 25, -30, false, true, 50, -25)
 
-    assert {"path", %{d: "a 25 25 -30 0 1 50 -25"}, []} = p
+    assert {"path", %{d: "a25 25 -30 0 1 50 -25"}, []} = p
+  end
+
+  test "several path elements" do
+    p =
+      Path.path()
+      |> Path.move(3, 4)
+      |> Path.line_to(10, 10)
+      |> Path.horizontal(34.5)
+
+    assert {"path", %{d: "M3 4L10 10H34.5"}, []} = p
+  end
+
+  test "a very long path has carriage returns inserted" do
   end
 end

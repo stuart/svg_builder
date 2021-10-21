@@ -2,6 +2,8 @@ defmodule Shape.ShapeTest do
   use ExUnit.Case
   use SvgBuilder
 
+  doctest Shape
+
   test "rect" do
     assert {"rect", %{x: "10", y: "10", width: "100", height: "100"}, []} ==
              Shape.rect(10, 10, 100, 100)

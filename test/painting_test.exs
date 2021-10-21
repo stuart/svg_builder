@@ -2,6 +2,8 @@ defmodule SvgBuilder.PaintingTest do
   use ExUnit.Case
   use SvgBuilder
 
+  doctest Painting
+
   test "fill none" do
     r =
       Shape.rect(10, 10, 20, 20)
@@ -35,7 +37,7 @@ defmodule SvgBuilder.PaintingTest do
   end
 
   test "fill with a color not named" do
-    assert_raise FunctionClauseError, fn ->
+    assert_raise ArgumentError, fn ->
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(:burple)
     end
@@ -49,15 +51,38 @@ defmodule SvgBuilder.PaintingTest do
     assert {"rect", %{fill: "rgb(100, 30, 40)"}, []} = r
   end
 
+  test "fill with iri (url)" do
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.fill("url(#myGradient)")
+
+    assert {"rect", %{fill: "url(#myGradient)"}, []} = r
+  end
+
+  test "fill with icc-color" do
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.fill("icc-color(some color)")
+
+    assert {"rect", %{fill: "icc-color(some color)"}, []} = r
+  end
+
+  test "assign a gradient element to fill" do
+    grad = {"linearGradient", %{id: "myGradient"}, []}
+
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.fill(grad)
+
+    assert {"rect", %{fill: "url(#myGradient)"}, []} = r
+  end
+
   test "fill with defaults" do
     {"rect", attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(%{})
 
     assert %{
-             fill: :black,
-             "fill-opacity": "1",
-             "fill-rule": "nonzero",
              height: "20",
              width: "20",
              x: "10",
@@ -121,21 +146,39 @@ defmodule SvgBuilder.PaintingTest do
     assert {"rect", %{stroke: :gold}, []} = r
   end
 
+  test "stroke with iri (url)" do
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.stroke("url(#myGradient)")
+
+    assert {"rect", %{stroke: "url(#myGradient)"}, []} = r
+  end
+
+  test "stroke with icc-color" do
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.stroke("icc-color(some color)")
+
+    assert {"rect", %{stroke: "icc-color(some color)"}, []} = r
+  end
+
+  test "assign a gradient element to stroke" do
+    grad = {"linearGradient", %{id: "myGradient"}, []}
+
+    r =
+      Shape.rect(10, 10, 20, 20)
+      |> Painting.stroke(grad)
+
+    assert {"rect", %{stroke: "url(#myGradient)"}, []} = r
+  end
+
   test "default stroke" do
     {"rect", attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(%{})
 
     assert %{
-             stroke: :none,
              height: "20",
-             "stroke-dasharray": :none,
-             "stroke-dashoffset": "0",
-             "stroke-linecap": :butt,
-             "stroke-linejoin": :miter,
-             "stroke-miterlimit": "4",
-             "stroke-opacity": "1",
-             "stroke-width": "1",
              width: "20",
              x: "10",
              y: "10"
@@ -151,6 +194,7 @@ defmodule SvgBuilder.PaintingTest do
         opacity: 0.5,
         linecap: :round,
         miter: :round,
+        linejoin: :miter,
         miterlimit: 3,
         dasharray: [3, 2],
         dashoffset: 1

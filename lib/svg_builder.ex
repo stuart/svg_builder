@@ -1,8 +1,13 @@
 defmodule SvgBuilder do
   import XmlBuilder
-  import SvgBuilder.Units
 
-  alias SvgBuilder.{Element, Painting}
+  alias SvgBuilder.{Units}
+
+  @moduledoc """
+  Create SVG documents.
+
+
+  """
 
   defmacro __using__(_options) do
     quote do
@@ -12,13 +17,18 @@ defmodule SvgBuilder do
       alias SvgBuilder.Painting
       alias SvgBuilder.Metadata
       alias SvgBuilder.Element
+      alias SvgBuilder.Text
+      alias SvgBuilder.Font
     end
   end
 
+  @spec write(IO.device(), iodata()) :: :ok | {:error, term()}
   def write(file, svg) do
     IO.binwrite(file, generate(svg))
   end
 
+  @spec svg(Units.len_t(), Units.len_t(), [SvgBuilder.Element.t()]) ::
+          nonempty_maybe_improper_list()
   def svg(width, height, elements \\ []) do
     document([
       doctype("svg",
@@ -28,18 +38,14 @@ defmodule SvgBuilder do
         :svg,
         %{
           version: "1.1",
-          width: l(width),
-          height: l(height),
-          viewBox: "0 0 #{l(width)} #{l(height)}",
+          width: Units.len(width),
+          height: Units.len(height),
+          viewBox: "0 0 #{Units.len(width)} #{Units.len(height)}",
           xmlns: "http://www.w3.org/2000/svg",
           "xmlns:xlink": "http://www.w3.org/1999/xlink"
         },
         elements
       )
     ])
-  end
-
-  def style(element, style) do
-    Element.add_attribute(element, :style, style)
   end
 end

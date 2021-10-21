@@ -7,7 +7,17 @@ defmodule SvgBuilder.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+
+      # Docs
+      name: "SVGBuilder",
+      source_url: "https://github.com/stuart/svg_builder",
+      docs: [],
+      dialyzer: [
+        plt_add_deps: :xml_builder,
+        plt_add_apps: [],
+        plt_ignore_apps: []
+      ]
     ]
   end
 
@@ -22,8 +32,11 @@ defmodule SvgBuilder.MixProject do
   defp deps do
     [
       {:xml_builder, "~> 2.1"},
-      {:tesla, "~> 1.4.3", only: :test},
-      {:jason, ">= 1.0.0", only: :test}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:tesla, "~> 1.4.3", only: :test, runtime: false},
+      {:jason, ">= 1.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 end
