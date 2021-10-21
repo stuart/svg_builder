@@ -1,7 +1,7 @@
 defmodule SvgBuilder.Font do
   alias SvgBuilder.{Element, Units}
 
-  @text_types ~w(altGlyph textPath text tref tspan)
+  @text_types ~w(altGlyph textPath text tref tspan)a
   @font_styles ~w(normal italic oblique inherit)a
   @font_variants ~w(normal small-caps inherit)a
   @font_weights ~w(normal bold bolder lighter inherit)a
@@ -61,10 +61,10 @@ defmodule SvgBuilder.Font do
     ## Example
 
       iex>Text.text("Some text") |> Font.font("bold italic large Palatino, serif")
-      {"text", %{font: "bold italic large Palatino, serif"}, "Some text"}
+      {:text, %{font: "bold italic large Palatino, serif"}, "Some text"}
 
       iex>Text.text("Some text") |> Font.font(%{family: "Palantino, serif", weight: :bold, style: :italic, size: :large})
-      {"text", %{"font-family": "Palantino, serif", "font-size": :large, "font-style": :italic, "font-weight": :bold}, "Some text"}
+      {:text, %{"font-family": "Palantino, serif", "font-size": :large, "font-style": :italic, "font-weight": :bold}, "Some text"}
 
   """
   @spec font(

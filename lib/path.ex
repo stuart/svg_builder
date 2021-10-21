@@ -8,17 +8,17 @@ defmodule SvgBuilder.Path do
 
   @spec path() :: Element.t()
   def path() do
-    element("path", %{d: ""}, [])
+    element(:path, %{d: ""}, [])
   end
 
   @spec path(Element.t() | [Element.t()]) :: Element.t()
   def path(children) when is_list(children) do
-    element("path", %{d: ""}, children)
+    element(:path, %{d: ""}, children)
   end
 
   @spec path(binary, [Element.t()]) :: Element.t()
   def path(d, children \\ []) when is_binary(d) do
-    element("path", %{d: d}, children)
+    element(:path, %{d: d}, children)
   end
 
   @spec move(Element.t(), number, number) :: Element.t()
@@ -129,8 +129,8 @@ defmodule SvgBuilder.Path do
   end
 
   @spec add_to_path(Element.t(), binary) :: Element.t()
-  defp add_to_path({"path", %{d: d} = attrs, children}, string) do
-    {"path", Map.put(attrs, :d, String.trim("#{d}#{string}")), children}
+  defp add_to_path({:path, %{d: d} = attrs, children}, string) do
+    {:path, Map.put(attrs, :d, String.trim("#{d}#{string}")), children}
   end
 
   @spec points_list([{number, number}]) :: binary

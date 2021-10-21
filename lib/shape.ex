@@ -26,7 +26,7 @@ defmodule SvgBuilder.Shape do
           Element.t()
   def rect(x, y, width, height, children \\ []) do
     element(
-      "rect",
+      :rect,
       %{x: Units.len(x), y: Units.len(y), width: Units.len(width), height: Units.len(height)},
       children
     )
@@ -62,7 +62,7 @@ defmodule SvgBuilder.Shape do
         ) :: Element.t()
   def rounded_rect(x, y, width, height, rx, ry, children \\ []) do
     element(
-      "rect",
+      :rect,
       %{
         x: Units.len(x),
         y: Units.len(y),
@@ -88,7 +88,7 @@ defmodule SvgBuilder.Shape do
   """
   @spec circle(Units.len_t(), Units.len_t(), Units.len_t(), [Element.t()]) :: Element.t()
   def circle(cx, cy, r, children \\ []) do
-    element("circle", %{cx: Units.len(cx), cy: Units.len(cy), r: Units.len(r)}, children)
+    element(:circle, %{cx: Units.len(cx), cy: Units.len(cy), r: Units.len(r)}, children)
   end
 
   @doc """
@@ -108,7 +108,7 @@ defmodule SvgBuilder.Shape do
           Element.t()
   def ellipse(cx, cy, rx, ry, children \\ []) do
     element(
-      "ellipse",
+      :ellipse,
       %{cx: Units.len(cx), cy: Units.len(cy), rx: Units.len(rx), ry: Units.len(ry)},
       children
     )
@@ -125,7 +125,7 @@ defmodule SvgBuilder.Shape do
           Element.t()
   def line(x1, y1, x2, y2, children \\ []) do
     element(
-      "line",
+      :line,
       %{x1: Units.len(x1), y1: Units.len(y1), x2: Units.len(x2), y2: Units.len(y2)},
       children
     )
@@ -139,12 +139,12 @@ defmodule SvgBuilder.Shape do
   ## Example
 
     iex> SvgBuilder.Shape.polyline([{0,0},{2,3},{3,4},{6,6}])
-    {"polyline", %{points: "0, 0, 2, 3, 3, 4, 6, 6"}, []}
+    {:polyline, %{points: "0, 0, 2, 3, 3, 4, 6, 6"}, []}
 
   """
   @spec polyline([{Units.len_t(), Units.len_t()}], [Element.t()]) :: Element.t()
   def polyline(points, children \\ []) do
-    element("polyline", %{points: points_to_string(points, "")}, children)
+    element(:polyline, %{points: points_to_string(points, "")}, children)
   end
 
   @doc """
@@ -155,12 +155,12 @@ defmodule SvgBuilder.Shape do
   ## Example
 
     iex> SvgBuilder.Shape.polygon([{0,0},{2,3},{3,4},{6,6}])
-    {"polygon", %{points: "0, 0, 2, 3, 3, 4, 6, 6"}, []}
+    {:polygon, %{points: "0, 0, 2, 3, 3, 4, 6, 6"}, []}
 
   """
   @spec polygon([{Units.len_t(), Units.len_t()}], [Element.t()]) :: Element.t()
   def polygon(points, children \\ []) do
-    element("polygon", %{points: points_to_string(points, "")}, children)
+    element(:polygon, %{points: points_to_string(points, "")}, children)
   end
 
   defp points_to_string([{x, y}], acc) do

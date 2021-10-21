@@ -15,7 +15,7 @@ defmodule SvgBuilder.Text do
   """
   @spec text(text_t) :: Element.t()
   def text(text) do
-    element("text", %{}, text_content(text))
+    element(:text, %{}, text_content(text))
   end
 
   @doc """
@@ -32,7 +32,7 @@ defmodule SvgBuilder.Text do
   @spec text(Units.length_list_t(), Units.length_list_t(), text_t) :: Element.t()
   def text(x, y, text) do
     element(
-      "text",
+      :text,
       %{x: "#{Units.length_list(x)}", y: "#{Units.length_list(y)}"},
       text_content(text)
     )
@@ -47,7 +47,7 @@ defmodule SvgBuilder.Text do
         ) :: Element.t()
   def text(x, y, dx, dy, text) do
     element(
-      "text",
+      :text,
       %{
         x: "#{Units.length_list(x)}",
         y: "#{Units.length_list(y)}",
@@ -60,13 +60,13 @@ defmodule SvgBuilder.Text do
 
   @spec tspan(text_t) :: Element.t()
   def tspan(text) do
-    element("tspan", %{}, tspan_content(text))
+    element(:tspan, %{}, tspan_content(text))
   end
 
   @spec tspan(Units.length_list_t(), Units.length_list_t(), text_t) :: Element.t()
   def tspan(x, y, text) do
     element(
-      "tspan",
+      :tspan,
       %{x: "#{Units.length_list(x)}", y: "#{Units.length_list(y)}"},
       text_content(text)
     )
@@ -81,7 +81,7 @@ defmodule SvgBuilder.Text do
         ) :: Element.t()
   def tspan(x, y, dx, dy, text) do
     element(
-      "tspan",
+      :tspan,
       %{
         x: "#{Units.length_list(x)}",
         y: "#{Units.length_list(y)}",
@@ -100,7 +100,7 @@ defmodule SvgBuilder.Text do
 
   """
   @spec rotate(Element.t(), Units.length_list_t()) :: Element.t()
-  def rotate({type, _, _} = element, rotation) when type in ["text", "tspan"] do
+  def rotate({type, _, _} = element, rotation) when type in [:text, :tspan] do
     Element.add_attribute(element, :rotate, Units.length_list(rotation))
   end
 
@@ -117,7 +117,7 @@ defmodule SvgBuilder.Text do
   end
 
   defp is_valid_text_content({type, _, _})
-       when type in ["altGlyph", "textPath", "tref", "tspan", "metadata", "desc", "title", "a"] do
+       when type in [:altGlyph, :textPath, :tref, :tspan, :metadata, :desc, :title, :a] do
     true
   end
 
@@ -138,7 +138,7 @@ defmodule SvgBuilder.Text do
   end
 
   defp is_valid_tspan_content({type, _, _})
-       when type in ["altGlyph", "tref", "tspan", "metadata", "desc", "title", "a"] do
+       when type in ["altGlyph", "tref", :tspan, "metadata", "desc", "title", "a"] do
     true
   end
 

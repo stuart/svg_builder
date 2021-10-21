@@ -7,12 +7,12 @@ defmodule SvgBuilder.Element do
 
   ## Example
 
-      iex> Element.element("text", %{}, "A text element")
-      {"text", %{}, "A text element"}
+      iex> Element.element(:text, %{}, "A text element")
+      {:text, %{}, "A text element"}
 
   """
 
-  @type t() :: {binary, map, [__MODULE__.t() | binary]}
+  @type t() :: {atom, map, [__MODULE__.t() | binary]}
 
   @doc """
     Create an element.
@@ -21,11 +21,11 @@ defmodule SvgBuilder.Element do
 
     ## Example
 
-      iex> Element.element("text", %{}, ["A text element"])
-      {"text", %{}, [{nil, nil, "A text element"}]}
+      iex> Element.element(:text, %{}, ["A text element"])
+      {:text, %{}, [{nil, nil, "A text element"}]}
 
   """
-  @spec element(binary, map, [t | binary]) :: t
+  @spec element(atom, map, [t | binary]) :: t
   def element(name, attributes, children) do
     XmlBuilder.element(name, attributes, children)
   end
@@ -40,14 +40,14 @@ defmodule SvgBuilder.Element do
       iex> Element.group([Shape.rect(1,1,1,1), Shape.rect(2,2,1,1)])
       {"g", %{},
       [
-        {"rect", %{height: "1", width: "1", x: "1", y: "1"}, []},
-        {"rect", %{height: "1", width: "1", x: "2", y: "2"}, []}
+        {:rect, %{height: "1", width: "1", x: "1", y: "1"}, []},
+        {:rect, %{height: "1", width: "1", x: "2", y: "2"}, []}
         ]}
 
   """
   @spec group([t]) :: t
   def group(elements \\ []) do
-    element("g", %{}, elements)
+    element(:g, %{}, elements)
   end
 
   @doc """
@@ -58,7 +58,7 @@ defmodule SvgBuilder.Element do
     ## Example
 
       iex> Shape.rect(1,1,2,2) |> Element.add_attribute(:id, "test")
-      {"rect", %{height: "2", id: "test", width: "2", x: "1", y: "1"}, []}
+      {:rect, %{height: "2", id: "test", width: "2", x: "1", y: "1"}, []}
 
   """
   @spec add_attribute(t, atom, any) :: t

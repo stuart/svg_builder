@@ -9,7 +9,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(:none)
 
-    assert {"rect", %{fill: :none}, []} = r
+    assert {:rect, %{fill: :none}, []} = r
   end
 
   test "fill currentColor" do
@@ -17,7 +17,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(:current)
 
-    assert {"rect", %{fill: :currentColor}, []} = r
+    assert {:rect, %{fill: :currentColor}, []} = r
   end
 
   test "fill inherit" do
@@ -25,7 +25,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(:inherit)
 
-    assert {"rect", %{fill: :inherit}, []} = r
+    assert {:rect, %{fill: :inherit}, []} = r
   end
 
   test "fill named color" do
@@ -33,7 +33,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(:lightgray)
 
-    assert {"rect", %{fill: :lightgray}, []} = r
+    assert {:rect, %{fill: :lightgray}, []} = r
   end
 
   test "fill with a color not named" do
@@ -48,7 +48,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill({100, 30, 40})
 
-    assert {"rect", %{fill: "rgb(100, 30, 40)"}, []} = r
+    assert {:rect, %{fill: "rgb(100, 30, 40)"}, []} = r
   end
 
   test "fill with iri (url)" do
@@ -56,7 +56,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill("url(#myGradient)")
 
-    assert {"rect", %{fill: "url(#myGradient)"}, []} = r
+    assert {:rect, %{fill: "url(#myGradient)"}, []} = r
   end
 
   test "fill with icc-color" do
@@ -64,21 +64,21 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill("icc-color(some color)")
 
-    assert {"rect", %{fill: "icc-color(some color)"}, []} = r
+    assert {:rect, %{fill: "icc-color(some color)"}, []} = r
   end
 
   test "assign a gradient element to fill" do
-    grad = {"linearGradient", %{id: "myGradient"}, []}
+    grad = {:linearGradient, %{id: "myGradient"}, []}
 
     r =
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(grad)
 
-    assert {"rect", %{fill: "url(#myGradient)"}, []} = r
+    assert {:rect, %{fill: "url(#myGradient)"}, []} = r
   end
 
   test "fill with defaults" do
-    {"rect", attrs, []} =
+    {:rect, attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(%{})
 
@@ -91,7 +91,7 @@ defmodule SvgBuilder.PaintingTest do
   end
 
   test "fill with attributes" do
-    {"rect", attrs, []} =
+    {:rect, attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill(%{color: {255, 30, 128}, rule: :evenodd, opacity: 0.6})
 
@@ -111,7 +111,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill_rule(:evenodd)
 
-    assert {"rect", %{"fill-rule": "evenodd"}, []} = r
+    assert {:rect, %{"fill-rule": "evenodd"}, []} = r
   end
 
   test "fill_opacity" do
@@ -119,7 +119,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.fill_opacity(0.5)
 
-    assert {"rect", %{"fill-opacity": "0.5"}, []} = r
+    assert {:rect, %{"fill-opacity": "0.5"}, []} = r
   end
 
   test "stroke with color" do
@@ -127,7 +127,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke({255, 34, 23})
 
-    assert {"rect", %{stroke: "rgb(255, 34, 23)"}, []} = r
+    assert {:rect, %{stroke: "rgb(255, 34, 23)"}, []} = r
   end
 
   test "stroke currentColor" do
@@ -135,7 +135,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(:current)
 
-    assert {"rect", %{stroke: :currentColor}, []} = r
+    assert {:rect, %{stroke: :currentColor}, []} = r
   end
 
   test "stroke with named color" do
@@ -143,7 +143,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(:gold)
 
-    assert {"rect", %{stroke: :gold}, []} = r
+    assert {:rect, %{stroke: :gold}, []} = r
   end
 
   test "stroke with iri (url)" do
@@ -151,7 +151,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke("url(#myGradient)")
 
-    assert {"rect", %{stroke: "url(#myGradient)"}, []} = r
+    assert {:rect, %{stroke: "url(#myGradient)"}, []} = r
   end
 
   test "stroke with icc-color" do
@@ -159,21 +159,21 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke("icc-color(some color)")
 
-    assert {"rect", %{stroke: "icc-color(some color)"}, []} = r
+    assert {:rect, %{stroke: "icc-color(some color)"}, []} = r
   end
 
   test "assign a gradient element to stroke" do
-    grad = {"linearGradient", %{id: "myGradient"}, []}
+    grad = {:linearGradient, %{id: "myGradient"}, []}
 
     r =
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(grad)
 
-    assert {"rect", %{stroke: "url(#myGradient)"}, []} = r
+    assert {:rect, %{stroke: "url(#myGradient)"}, []} = r
   end
 
   test "default stroke" do
-    {"rect", attrs, []} =
+    {:rect, attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(%{})
 
@@ -186,7 +186,7 @@ defmodule SvgBuilder.PaintingTest do
   end
 
   test "stroke with stroke attributes map" do
-    {"rect", attrs, []} =
+    {:rect, attrs, []} =
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke(%{
         color: :blue,
@@ -221,7 +221,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_width("3px")
 
-    assert {"rect", %{"stroke-width": "3px"}, []} = r
+    assert {:rect, %{"stroke-width": "3px"}, []} = r
   end
 
   test "stroke_linecap" do
@@ -229,7 +229,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_linecap(:round)
 
-    assert {"rect", %{"stroke-linecap": :round}, []} = r
+    assert {:rect, %{"stroke-linecap": :round}, []} = r
   end
 
   test "stroke_linejoin" do
@@ -237,7 +237,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_linejoin(:round)
 
-    assert {"rect", %{"stroke-linejoin": :round}, []} = r
+    assert {:rect, %{"stroke-linejoin": :round}, []} = r
   end
 
   test "stroke_miterlimit" do
@@ -245,7 +245,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_miterlimit(4)
 
-    assert {"rect", %{"stroke-miterlimit": "4"}, []} = r
+    assert {:rect, %{"stroke-miterlimit": "4"}, []} = r
   end
 
   test "stroke_dasharray" do
@@ -253,7 +253,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_dasharray([2, 3, 4, 3])
 
-    assert {"rect", %{"stroke-dasharray": "2 3 4 3"}, []} = r
+    assert {:rect, %{"stroke-dasharray": "2 3 4 3"}, []} = r
   end
 
   test "stroke_dashoffset" do
@@ -261,7 +261,7 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_dashoffset({4, :px})
 
-    assert {"rect", %{"stroke-dashoffset": "4px"}, []} = r
+    assert {:rect, %{"stroke-dashoffset": "4px"}, []} = r
   end
 
   test "stroke_opacity" do
@@ -269,6 +269,6 @@ defmodule SvgBuilder.PaintingTest do
       Shape.rect(10, 10, 20, 20)
       |> Painting.stroke_opacity(0.1)
 
-    assert {"rect", %{"stroke-opacity": "0.1"}, []} = r
+    assert {:rect, %{"stroke-opacity": "0.1"}, []} = r
   end
 end

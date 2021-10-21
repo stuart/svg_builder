@@ -12,7 +12,7 @@ defmodule SvgBuilder.Metadata do
   """
   @spec desc(SvgBuilder.Element.t(), binary) :: SvgBuilder.Element.t()
   def desc({type, attrs, children}, description) do
-    {type, attrs, [element("desc", description) | children]}
+    {type, attrs, [element(:desc, description) | children]}
   end
 
   @doc """
@@ -20,7 +20,7 @@ defmodule SvgBuilder.Metadata do
   """
   @spec metadata(SvgBuilder.Element.t(), binary) :: SvgBuilder.Element.t()
   def metadata({type, attrs, children}, data) do
-    {type, attrs, [element("metadata", data) | children]}
+    {type, attrs, [element(:metadata, data) | children]}
   end
 
   @doc """
@@ -28,6 +28,6 @@ defmodule SvgBuilder.Metadata do
   """
   @spec title(SvgBuilder.Element.t(), binary) :: SvgBuilder.Element.t()
   def title({type, attrs, children}, title) do
-    {type, attrs, [element("title", title) | children]}
+    {type, attrs, [element(:title, title) | children]}
   end
 end

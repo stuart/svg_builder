@@ -5,7 +5,7 @@ defmodule SvgBuilderTest do
   use SvgBuilder
   use Tesla
 
-  @moduletag :external
+  #@moduletag :external
 
   plug(Tesla.Middleware.BaseUrl, "https://validator.w3.org/nu/")
 
@@ -49,7 +49,7 @@ defmodule SvgBuilderTest do
         |> Painting.stroke(:red),
         Path.path()
         |> Path.move(200, 80)
-        |> Path.arc(10, 10, 0, 1, 1, 250, 50)
+        |> Path.arc(10, 10, 0, true, true, 250, 50)
         |> Painting.fill(:goldenrod)
         |> Painting.stroke(:black)
       ]
@@ -141,7 +141,7 @@ defmodule SvgBuilderTest do
       ]
       |> Element.group()
       |> Transform.translate(10, 200)
-      |> Metadata.title("Text")
+      |> Metadata.title(:text)
 
     svg =
       SvgBuilder.svg(300, 300, [shapes, paths, paintings, transforms, text])

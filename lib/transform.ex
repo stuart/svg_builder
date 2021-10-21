@@ -5,6 +5,7 @@ defmodule SvgBuilder.Transform do
   Apply transforms to SVG elements.
   """
 
+  
   @spec translate(Element.t(), number, number) :: Element.t()
   def translate(element, tx, ty) do
     add_transform(element, "translate(#{tx},#{ty})")

@@ -212,14 +212,14 @@ defmodule SvgBuilder.Painting do
   ## Examples
 
       iex> rect = SvgBuilder.Shape.rect(0,0,10,10)
-      {"rect", %{height: "10", width: "10", x: "0", y: "0"}, []}
+      {:rect, %{height: "10", width: "10", x: "0", y: "0"}, []}
       iex> SvgBuilder.Painting.fill(rect, :red)
-      {"rect", %{fill: :red, height: "10", width: "10", x: "0", y: "0"}, []}
+      {:rect, %{fill: :red, height: "10", width: "10", x: "0", y: "0"}, []}
       iex> SvgBuilder.Painting.fill(rect, {123,45,3})
-      {"rect", %{fill: "rgb(123, 45, 3)", height: "10", width: "10", x: "0", y: "0"},[]}
+      {:rect, %{fill: "rgb(123, 45, 3)", height: "10", width: "10", x: "0", y: "0"},[]}
       iex>SvgBuilder.Painting.fill(rect, %{color: :inherit, opacity: 0.5, rule: :evenodd})
-      {"rect", %{fill: "rgb(123, 45, 3)", height: "10", width: "10", x: "0", y: "0"},[]}
-      {"rect",
+      {:rect, %{fill: "rgb(123, 45, 3)", height: "10", width: "10", x: "0", y: "0"},[]}
+      {:rect,
         %{
             fill: :inherit,
             "fill-opacity": "0.5",
@@ -393,7 +393,7 @@ defmodule SvgBuilder.Painting do
   end
 
   defp paint({type, %{id: id}, []})
-       when type in ["linearGradient", "radialGradient", "pattern"] do
+       when type in [:linearGradient, :radialGradient, :pattern] do
     "url(##{id})"
   end
 
